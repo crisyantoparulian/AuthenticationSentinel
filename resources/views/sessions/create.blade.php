@@ -37,9 +37,11 @@
 <div class="col-lg-4">
 
 {!! Form::submit('Login', array('class' => 'btn btn-raised btn-primary')) !!}
-
+<br />
+{!! link_to(route('reminders.create'), 'Forgot Password?') !!}
 </div>
 <div class="clear"></div>
 </div>
+
 {!! Form::close() !!}
 @stop

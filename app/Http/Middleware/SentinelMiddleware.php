@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Sentinel;
+use Closure;
 
 class SentinelMiddleware
 {

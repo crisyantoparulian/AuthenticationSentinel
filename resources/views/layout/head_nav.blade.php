@@ -11,14 +11,14 @@
                 </div>
                 <div class="navbar-collapse collapse navbar-responsive-collapse">
                   <ul class="nav navbar-nav">
-                    <li class="{{ Request::is('articles') ? 'active' : '' }}"><a href="{{url('articles')}}">Articles</a></li>
-                    <li class="{{ Request::is('signup') ? 'active' : '' }}"><a href="{{url('signup')}}">Signup</a></li>
+                    <li class="{{ Request::is('create') ? 'active' : '' }}"><a href="{{url('create')}}">Create</a></li>
+                    
                     <ul class="nav navbar-nav navbar-right">
                     @if (Sentinel::check())
                     <li>{!! link_to(route('logout'), 'Logout') !!}</li>
                     <li><a>Wellcome {!! Sentinel::getUser()->email !!}</a></li>
                     @else
-                    <li>{!! link_to(route('signup'), 'Signup') !!}</li>
+                    <li class="{{ Request::is('signup') ? 'active' : '' }}"><a href="{{url('signup')}}">Signup</a></li>
                     <li>{!! link_to(route('login'), 'Login') !!}</li>
                     @endif
                   </ul>
