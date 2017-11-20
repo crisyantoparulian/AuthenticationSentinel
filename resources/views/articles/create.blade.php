@@ -6,7 +6,7 @@
               <h3 class="panel-title">Create Articles </h3>
 
             </div>
-{!! Form::open(['route' => 'articles.store', 'class' => 'form-
+{!! Form::open(['route' => 'articles.store', 'files'=>true,'class' => 'form-
 horizontal', 'role' => 'form']) !!}
 <div class="panel panel-body">
 @include('articles.form')

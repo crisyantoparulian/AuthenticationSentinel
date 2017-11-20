@@ -1,6 +1,8 @@
 @foreach($articles as $article)
 <div align="center">
 	<h1>{!!$article->title!!}</h1>
+</br>
+<img class="img-responsive" alt="" src="/images/{{ $article->image }}" />
 </div>
 <p>
  &nbsp{!! str_limit($article->content, 250) !!}

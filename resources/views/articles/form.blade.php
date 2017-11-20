@@ -1,3 +1,4 @@
+
 <div class="form-group">
 
 {!! Form::label('title', 'Title', array('class' => 'col-lg-3 control-label')) !!}
@@ -9,6 +10,16 @@
 </div>
 <div class="clear"></div>
 </div>
+<br/>
+<div class="form-group">
+<div class="clear"></div>
+{!! Form::label('image', 'Image', array('class' => 'col-lg-3 control-label')) !!}
+		<div class="col-lg-9">       
+                <input type="file" name="image" class="form-control">
+            </div>
+<div class="text-danger">{!! $errors->first('image') !!}</div>
+</div>
+<br/>
 <div class="form-group">
 {!! Form::label('content', 'Content', array('class' => 'col-lg-3 control-label')) !!}
 <div class="col-lg-9">

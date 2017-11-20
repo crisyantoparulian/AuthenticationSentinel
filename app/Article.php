@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     protected $fillable = [
-    	'title', 'content'
+    	'title', 'content','image'
     ];
     public static function valid() {
 	return array(
-	'content' => 'required'
+		'content' => 'required'
 	);
 }
 public function comments() {
