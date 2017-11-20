@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Article;
 use Session;
 use File;
+use Validator;
+use Redirect;
 
 class ArticlesController extends Controller
 {
@@ -81,6 +83,13 @@ class ArticlesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validate = Validator::make($request->all(), [
+            'content'  => 'required|max:255|min:5',
+            'title' => 'required|max:100',
+        ]);
+        if($validate->fails()) {
+    return Redirect::to('articles/'.$id.'/edit')->withErrors($validate)->withInput();
+    } else {
         $hasil =Article::find($id);
         $input['title'] = $request->title;
         $input['content'] = $request->content;
@@ -91,6 +100,7 @@ class ArticlesController extends Controller
         Article::find($id)->update($input);
         Session::flash("notice","Article success update");
         return redirect()->route("articles.show", $id);
+    }
     }
 
     /**

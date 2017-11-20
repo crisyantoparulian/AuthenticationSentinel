@@ -2,7 +2,9 @@
 <div align="center">
 	<h1>{!!$article->title!!}</h1>
 </br>
+<div class="portrait">
 <img class="img-responsive" alt="" src="/images/{{ $article->image }}" />
+</div>
 </div>
 <p>
  &nbsp{!! str_limit($article->content, 250) !!}
