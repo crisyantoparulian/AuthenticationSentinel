@@ -4,8 +4,19 @@
           <div class="panel panel-primary">
             <div class="panel-heading">
               <h1>Judul : <b>{!! $article->title !!}</b></h1>
+              </br>
+            	<img class="img-responsive" alt="" src="/images/{{ $article->image }}" />
             	<p><b>Content : </b>{!! $article->content !!}</p>
             </div>
+ {!! Form::open(array('route' => array('articles.destroy', $article->id), 'method' => 'delete')) !!}
+
+{!! link_to(route('articles.index'), "Back", ['class' => 'btn btn-raised btn-info']) !!}
+
+{!! link_to(route('articles.edit', $article->id), 'Edit', ['class'=> 'btn btn-raised btn-warning']) !!}
+
+{!! Form::submit('Delete', array('class' => 'btn btn-raised btn-danger', "onclick" => "return confirm('are you sure?')")) !!}
+{!! Form::close() !!}
+</div>
 <div>
 <div class="col-md-12">
 <h3 align="center"><i><u>Give Comments</u></i></h3>
@@ -35,8 +46,8 @@
 <div class="form-group">
 {!! Form::label('user', 'Your Name', array('class' => 'col-lg-3 control-label')) !!}
 <div class="col-lg-9">
-{!! Form::text('user', null, array('class' => 'form-control'))
-!!}
+{!! Form::text('user', null, array('class' => 'form-control','type'=>'email'))!!}
+{!! $errors->first('user') !!}
 </div>
 <div class="clear"></div>
 </div>

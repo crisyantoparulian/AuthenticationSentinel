@@ -14,8 +14,9 @@
 <div class="form-group">
 <div class="clear"></div>
 {!! Form::label('image', 'Image', array('class' => 'col-lg-3 control-label')) !!}
-		<div class="col-lg-9">       
-                <input type="file" name="image" class="form-control">
+		<div class="col-lg-9">     
+		{!! Form::file('image', null, array('class' => 'form-control')) !!}  
+            <!--     <input type="file" name="image" class="form-control"> -->
             </div>
 <div class="text-danger">{!! $errors->first('image') !!}</div>
 </div>

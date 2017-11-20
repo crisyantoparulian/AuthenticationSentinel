@@ -13,7 +13,10 @@ class CommentsController extends Controller
 {
     public function store(Request $request)
 	{
-	$validate = Validator::make($request->all(), Comment::valid());
+	$validate = Validator::make($request->all(), [
+            'content'  => 'required|max:30|min:5',
+            'user' => 'required|max:100|email',
+        ]);
 	if($validate->fails()) {
 	return Redirect::to('articles/'. $request->article_id)->withErrors($validate)->withInput();
 	} else {

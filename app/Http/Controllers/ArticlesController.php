@@ -5,6 +5,7 @@ use App\Http\Requests\ArticleRequest;
 use Illuminate\Http\Request;
 use App\Article;
 use Session;
+use File;
 
 class ArticlesController extends Controller
 {
@@ -78,9 +79,16 @@ class ArticlesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ArticleRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        Article::find($id)->update($request->all());
+        $hasil =Article::find($id);
+        $input['title'] = $request->title;
+        $input['content'] = $request->content;
+        $input['image'] = $hasil->image;
+        if($request->image !=null ){
+            $request->image->move(public_path('images'), $input['image']);   
+        }
+        Article::find($id)->update($input);
         Session::flash("notice","Article success update");
         return redirect()->route("articles.show", $id);
     }
@@ -93,6 +101,14 @@ class ArticlesController extends Controller
      */
     public function destroy($id)
     {
+        $hasil =Article::find($id);
+        // $image_path = "/images/".$hasil->image;
+        // if(File::exists($image_path)) {
+        //     File::delete($image_path);
+        // }
+        if(\File::exists(public_path('images/'.$hasil->image))){
+              \File::delete(public_path('images/'.$hasil->image));
+            }
         Article::destroy($id);
         Session::flash("notice", "Article success deleted");
         return redirect()->route("articles.index");
