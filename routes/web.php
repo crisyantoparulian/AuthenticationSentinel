@@ -11,10 +11,13 @@
 |
 */
 
+Route::get('home', function () {
+    return view('welcome');
+});
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('create','ArticleController@create')->name('articles.create');
+
 Route::get('signup','UsersController@signup')->name('signup');
 Route::post('signup','UsersController@signup_store')->name('signup.store');
 Route::post('login','SessionsController@login_store')->name('login.store');
@@ -25,3 +28,5 @@ Route::post('forgot-password', 'ReminderController@store')->name('reminders.stor
 //this routes for handle changes password
 Route::get('reset-password/{id}/{token}', 'ReminderController@edit')->name('reminders.edit');
 Route::post('reset-password/{id}/{token}','ReminderController@update')->name('reminders.update');
+Route::resource('/articles', 'ArticlesController');
+Route::resource('comments', 'CommentsController');

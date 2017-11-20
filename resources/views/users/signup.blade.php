@@ -2,8 +2,10 @@
 @section("content")
 
 {!! Form::open(['route' => 'signup.store', 'class' => 'form-horizontal', 'role' => 'form']) !!}
-
-<div class="form-group">
+<div class="panel panel-danger">
+      <div class="panel-heading">SIGN UP</div>
+      <div class="panel-body">
+      <div class="form-group">
 {!! Form::label('first_name', 'First Name', array('class' =>'col-lg-3 control-label')) !!}
 <div class="col-lg-4">
 
@@ -64,5 +66,8 @@
 </div>
 <div class="clear"></div>
 </div>
+</div>
+ </div>
+    </div>
 {!! Form::close() !!}
 @stop

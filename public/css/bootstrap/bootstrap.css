@@ -1118,14 +1118,7 @@ img {
 .img-responsive,
 .thumbnail > img,
 .thumbnail a > img,
-.carousel-inner > .item > img {
-  width:1350px;
-  height:500px;
-}
-.carousel {
-  width:1350px;
-  height:500px;
-}
+.carousel-inner > .item > img,
 .carousel-inner > .item > a > img {
   display: block;
   max-width: 100%;

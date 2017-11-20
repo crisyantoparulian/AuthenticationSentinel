@@ -13,6 +13,11 @@
   box-shadow: 0 9px #999;
   z-index: 3;
 }
+hr.style13 {
+  height: 10px;
+  border: 0;
+  box-shadow: 0 10px 10px -10px #8c8b8b inset;
+}
 .button23:hover{
 	background-color: #3e8e41
 }
@@ -27,4 +32,15 @@
   padding-right: 15px;
   padding-left: 15px;
   border: solid blue 3px;
+}
+.jarak{
+padding-top: 3.5rem;
+}
+hr.style10 {
+  border-top: 1px dotted #8c8b8b;
+  border-bottom: 1px dotted #fff;
+}
+hr.style8 {
+  border-top: 1px solid #8c8b8b;
+  border-bottom: 5px solid #fff;
 }

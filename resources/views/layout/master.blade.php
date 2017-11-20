@@ -6,14 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{{ asset('css/custom/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/material-design/bootstrap-material-design.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/material-design/ripples.min.css') }}">
-  <link href="//fezvrasta.github.io/snackbarjs/dist/snackbar.min.css" rel="stylesheet">
+ <!--  <link rel="stylesheet" href="{{ asset('css/material-design/bootstrap-material-design.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/material-design/ripples.min.css') }}"> -->
 </head>
 <body>
   @include('layout.head_nav')
-<div class="container">
-  
+  <main role="main" class="container">
+    <div class="jarak"></div>
+<div class="row">
+
+        <div class="col-sm-12 blog-main">
+
+          <div class="blog-post">
       @if (Session::has('error'))
       <div class="session-flash alert-danger">
       {{Session::get('error')}}
@@ -26,13 +30,14 @@
       @endif
 
       @yield("content")   
+    </div>
+  </div>
 </div>
-<script src="//fezvrasta.github.io/snackbarjs/dist/snackbar.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/noUiSlider/6.2.0/jquery.nouislider.min.js"></script>
 <script src="{{ asset('js/jquery/jquery-3.2.1.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap/popper.js') }}"></script>
   <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('js/material-design/material.min.js') }}"></script>
-  <script src="{{ asset('js/material-design/ripples.min.js') }}"></script>
+   <!--  <script src="{{ asset('js/material-design/material.min.js') }}"></script>
+  <script src="{{ asset('js/material-design/ripples.min.js') }}"></script> -->
 
 
 </body>
