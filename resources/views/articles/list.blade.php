@@ -15,3 +15,6 @@
 
 <br/>
 @endforeach
+<div>
+{!! $articles->render() !!}
+</div>

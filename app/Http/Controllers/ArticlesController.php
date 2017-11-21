@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ArticleRequest;
 use Illuminate\Http\Request;
 use App\Article;
+use App\Comment;
 use Session;
 use File;
 use Validator;
 use Redirect;
-
+use DB;
 class ArticlesController extends Controller
 {
     /**
@@ -16,9 +17,13 @@ class ArticlesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct() {
+        $this->middleware('sentinel');
+        $this->middleware('sentinel.role');
+        }
     public function index()
     {
-        $article = Article::all();
+        $article = DB::table('articles')->orderBy('id', 'desc')->paginate(3);
         return view('articles.index')->with('articles',$article);
     }
 
@@ -112,13 +117,10 @@ class ArticlesController extends Controller
     public function destroy($id)
     {
         $hasil =Article::find($id);
-        // $image_path = "/images/".$hasil->image;
-        // if(File::exists($image_path)) {
-        //     File::delete($image_path);
-        // }
         if(\File::exists(public_path('images/'.$hasil->image))){
               \File::delete(public_path('images/'.$hasil->image));
             }
+        DB::table('comments')->where('article_id', '=', $id)->delete();
         Article::destroy($id);
         Session::flash("notice", "Article success deleted");
         return redirect()->route("articles.index");

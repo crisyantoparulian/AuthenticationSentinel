@@ -8,18 +8,18 @@
     <ul class="nav navbar-nav">
       <li class="{{ Request::is('home') ? 'active' : '' }}"><a href="{{url('home')}}">Home</a></li>
       <li class="{{ Request::is('articles') ? 'active' : '' }}"><a href="{{url('articles')}}">Articles</a></li>
-      <li><a href="#">Page 2</a></li>
     </ul>
-    <form class="navbar-form navbar-left">
+    <div id="main-content" class="navbar-form navbar-left">
+  
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search">
+        <input type="text" class="form-control" id="keywords" placeholder="Search">
         <div class="input-group-btn">
-          <button class="btn btn-default" type="submit">
+          <button id="search" class="btn btn-default" type="button">
             <i class="glyphicon glyphicon-search"></i>
           </button>
         </div>
       </div>
-    </form>
+      </div>
     <ul class="nav navbar-nav navbar-right">
                     @if (Sentinel::check())
                      <li><a>Wellcome {!! Sentinel::getUser()->email !!}</a></li>

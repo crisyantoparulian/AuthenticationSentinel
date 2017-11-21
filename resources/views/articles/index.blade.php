@@ -3,7 +3,6 @@
 <div class="row">
   <div class="col-sm-3" align="center">
   	<br/>
-  	
   	{!! link_to(route("articles.create"), "Create", ["class"=>"button23"]) !!}
   </div>
   <div class="col-sm-8">

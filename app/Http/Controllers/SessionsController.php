@@ -24,7 +24,7 @@ class SessionsController extends Controller
     	if($user = Sentinel::authenticate($request->all()))
     		{
     			Session::flash("notice", "Welcome ".$user->email);
-    			return redirect()->intended('/');
+    			return redirect()->intended('home');
     		}else{
     			Session::flash("error","Login Fails");
     			return view('sessions.create');
