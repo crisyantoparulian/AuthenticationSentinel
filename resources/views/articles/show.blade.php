@@ -25,53 +25,15 @@
 <div>
 <div class="col-md-12">
 <h3 align="center"><i><u>Give Comments</u></i></h3>
-
-{!! Form::open(['route' => 'comments.store', 'class' => 'form-horizontal', 'role' => 'form']) !!}
-
-<div class="form-group" style="width: 900px">
-<!-- {!! Form::label('article_id', 'Title', array('class' => 'col-lg-3 control-label')) !!} -->
-
-
-<div class="col-lg-9">
-<!-- {!! Form::text('article_id', $value = $article->id, array('class'=> 'form-control', 'readonly')) !!} -->
-{{ Form::hidden('article_id',  $value = $article->id, array('id' => 'article_id')) }}
-</div>
-<div class="clear"></div>
-</div>
-<div class="form-group">
-{!! Form::label('content', 'Your Comment', array('class' => 'col-lg-3 control-label')) !!}
-<div class="col-lg-9">
-
-{!! Form::textarea('content', null, array('class' => 'form-control', 'rows' => 10, 'autofocus' => 'true')) !!}
-
-{!! $errors->first('content') !!}
-</div>
-<div class="clear"></div>
-</div>
-<div class="form-group">
-{!! Form::label('user', 'Your Name', array('class' => 'col-lg-3 control-label')) !!}
-<div class="col-lg-9">
-{!! Form::text('user', null, array('class' => 'form-control','type'=>'email'))!!}
-{!! $errors->first('user') !!}
-</div>
-<div class="clear"></div>
-</div>
-<div class="form-group">
-<div class="col-lg-3"></div>
-<div class="col-lg-9">
-{!! Form::submit('Submit', array('class' => 'btn btn-primary'))
-!!}
-</div>
-<div class="clear"></div>
-</div>
-{!! Form::close() !!}
+ <ul>
+                   
+                    <a href="#" class="add-modal" class="btn btn-default">Add a Comment</a>
+                </br>
+                    
 </div>
 <!-- <div class="col-md-12"> -->
 
-                <ul>
-                    <li><i class="fa fa-file-text-o"></i> All the current Posts</li>
-                    <a href="#" class="add-modal"><li>Add a Post</li></a>
-                </ul>
+               
            
 </br>
 <!-- @foreach($comments as $comment)
@@ -82,15 +44,19 @@
 <hr/>
 @endforeach -->
 <table class="table table-striped table-bordered table-hover" id="postTable" style="visibility: hidden;">
+    <thead>
+        {{ csrf_field() }}
+    </thead>
   @foreach($comments as $indexKey =>$comment)
   <tr class="item{{$comment->id}}">
     <!-- <td class="col1">{{ $indexKey+1 }} </td> -->
     <td>{{ $comment->content}}
     <br/>
-     By : {{$comment->user}}
+     <b>By :</b> {{$comment->user}}
    </td>
     <td> <button class="delete-modal btn btn-danger" data-id="{{$comment->id}}" data-user="{{$comment->user}}" data-content="{{$comment->content}}">
-                                        <span class="glyphicon glyphicon-trash"></span> Delete</button>
+  <span class="glyphicon glyphicon-trash"></span> 
+  Delete</button>
               </td>
   </tr>
   @endforeach
@@ -98,6 +64,7 @@
 </div>
 </div>
 </div>
+
 <div id="addModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -107,7 +74,7 @@
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal" role="form">
-                      <input type="hidden" id="_token" name="_token" value="<?php echo csrf_token(); ?>">
+                        <input type="hidden" id="token" value="{{ csrf_token() }}">
                       {{ Form::hidden('article_id',  $value = $article->id, array('id' => 'id_add')) }}
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="title">User:</label>
@@ -129,6 +96,44 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-success add" data-dismiss="modal">
                             <span id="" class='glyphicon glyphicon-check'></span> Add
+                        </button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">
+                            <span class='glyphicon glyphicon-remove'></span> Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="deleteModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-user"></h4>
+                </div>
+                <div class="modal-body">
+                    <h3 class="text-center">Are you sure you want to delete the following post?</h3>
+                    <br />
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                          <input type="hidden" id="_token" name="_token" value="<?php echo csrf_token(); ?>">
+                            <label class="control-label col-sm-2" for="id">ID:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="id_delete" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="user">User:</label>
+                            <div class="col-sm-10">
+                                <input type="name" class="form-control" id="user_delete" disabled>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger delete" data-dismiss="modal">
+                            <span id="" class='glyphicon glyphicon-trash'></span> Delete
                         </button>
                         <button type="button" class="btn btn-warning" data-dismiss="modal">
                             <span class='glyphicon glyphicon-remove'></span> Close

@@ -13,7 +13,24 @@
   box-shadow: 0 9px #999;
   z-index: 3;
 }
-<style>
+.add-modal {
+  -webkit-border-radius: 60;
+  -moz-border-radius: 60;
+  border-radius: 60px;
+  text-shadow: 1px 1px 3px #d41bd4;
+  font-family: Georgia;
+  color: #050505;
+  font-size: 14px;
+  padding: 9px;
+  background: #b2c8d6;
+  text-decoration: none;
+  
+}
+
+.add-modal:hover {
+  background: #acaeb3;;
+  text-decoration: none;
+}
         .panel-heading {
             padding: 0;
         }
@@ -43,8 +60,7 @@
         .table.table-bordered tbody td {
             vertical-align: baseline;
         }
-    </style>
-hr.style13 {
+    hr.style13 {
   height: 10px;
   border: 0;
   box-shadow: 0 10px 10px -10px #8c8b8b inset;

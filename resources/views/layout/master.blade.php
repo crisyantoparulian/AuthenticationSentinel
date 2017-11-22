@@ -4,9 +4,10 @@
   <title>Articles</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="_token" content="{{ csrf_token() }}"/>
+ <meta name="_token" content="{{ csrf_token() }}"/>
   <link rel="stylesheet" href="{{ asset('css/custom/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
  <!--  <link rel="stylesheet" href="{{ asset('css/material-design/bootstrap-material-design.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/material-design/ripples.min.css') }}"> -->
 </head>
@@ -46,6 +47,11 @@
         })
     </script>
     <script type="text/javascript">
+       $.ajaxSetup({
+         headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+});
       //add
       $(document).on('click', '.add-modal', function() {
             $('.modal-title').text('Add');
@@ -56,7 +62,7 @@
                 type: 'POST',
                 url: '{{ URL::route('comments.store') }}',
                 data: {
-                    '_token': $('#_token').val(),
+                    '_token': $('input[name=_token]').val(),
                     'article_id': $('#id_add').val(),
                     'user': $('#user_add').val(),
                     'content': $('#content_add').val()
@@ -81,12 +87,39 @@
                         }
                     } else {
                         toastr.success('Successfully added Post!', 'Success Alert', {timeOut: 5000});
-                        $('#postTable').prepend("<tr class='item" + data.id + "'><td>" + data.user + "</br>" + data.content + "</td><button class='delete-modal btn btn-danger' data-id='" + data.id + "' data-user='" + data.user + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-trash'></span> Delete</button></td></tr>");                        
+                        $('#postTable').append("<tr class='item" + data.id + "'><td>"+ data.content +  "</br> <b>By :</b>" + data.user + "</td><td><button class='delete-modal btn btn-danger' data-id='" + data.id + "' data-user='" + data.user + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-trash'></span> Delete</button></td></tr>");                        
                         $('.col1').each(function (index) {
                             $(this).html(index+1);
                         });
                     }
                 },
+            });
+        });
+       
+        //delete
+
+        $(document).on('click', '.delete-modal', function() {
+            $('.modal-user').text('Delete');
+            $('_token').val($(this).data('_token'));
+            $('#id_delete').val($(this).data('id'));
+            $('#user_delete').val($(this).data('user'));
+            $('#deleteModal').modal('show');
+            id = $('#id_delete').val();
+        });
+        $('.modal-footer').on('click', '.delete', function() {
+            $.ajax({
+                type: 'DELETE',
+                url: '/comments/' + id,
+                data: {
+                    '_token': $('#_token').val(),
+                },
+                success: function(data) {
+                    toastr.success('Successfully deleted Comment!', 'Success Alert', {timeOut: 5000});
+                    $('.item' + data['id']).remove();
+                    $('.col1').each(function (index) {
+                        $(this).html(index+1);
+                    });
+                }
             });
         });
     </script>
