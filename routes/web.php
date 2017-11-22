@@ -30,3 +30,4 @@ Route::get('reset-password/{id}/{token}', 'ReminderController@edit')->name('remi
 Route::post('reset-password/{id}/{token}','ReminderController@update')->name('reminders.update');
 Route::resource('/articles', 'ArticlesController');
 Route::resource('comments', 'CommentsController');
+
