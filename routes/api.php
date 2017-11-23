@@ -18,3 +18,4 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 // get list of tasks
 Route::resource('tasks', 'TaskController');
+Route::put('tasks', 'TaskController@store');

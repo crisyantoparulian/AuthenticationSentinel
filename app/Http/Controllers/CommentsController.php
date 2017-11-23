@@ -39,7 +39,19 @@ class CommentsController extends Controller
         $comment->delete();
         return response()->json($comment);
 	}
-
+	public function update(Request $request, $id)
+    {
+        $validator = Validator::make(Input::all(), $this->rules);
+        if ($validator->fails()) {
+            return Response::json(array('errors' => $validator->getMessageBag()->toArray()));
+        } else {
+            $comment = Comment::findOrFail($id);
+            $comment->user = $request->user;
+            $comment->content = $request->content;
+            $comment->save();
+            return response()->json($comment);
+        }
+    }
 	public function index()
 	{
 		return view('welcome');

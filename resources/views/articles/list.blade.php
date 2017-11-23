@@ -9,7 +9,7 @@
 <p>
  &nbsp{!! str_limit($article->content, 250) !!}
 <br/>
-<div align="center">{!! link_to(route('articles.show', $article->id), 'Read More') !!}</div>
+<div align="center" >{!! link_to(route('articles.show', $article->id), 'Read More', ['class' => 'ButtonRead']) !!}</div>
 </p>
 <hr class="style13">
 

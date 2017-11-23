@@ -87,7 +87,7 @@
                         }
                     } else {
                         toastr.success('Successfully added Post!', 'Success Alert', {timeOut: 5000});
-                        $('#postTable').append("<tr class='item" + data.id + "'><td>"+ data.content +  "</br> <b>By :</b>" + data.user + "</td><td><button class='delete-modal btn btn-danger' data-id='" + data.id + "' data-user='" + data.user + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-trash'></span> Delete</button></td></tr>");                        
+                        $('#postTable').append("<tr class='item" + data.id + "'><td>"+ data.content +  "</br> <b>By :</b>" + data.user + "</td><td><button class='delete-modal btn btn-danger' data-id='" + data.id + "' data-user='" + data.user + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-trash'></span> Delete</button> <button class='edit-modal btn btn-info' data-id='" + data.id + "' data-user='" + data.user + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-edit'></span> Edit</button></td> </tr>");                        
                         $('.col1').each(function (index) {
                             $(this).html(index+1);
                         });
@@ -96,6 +96,54 @@
             });
         });
        
+       // Edit a post
+        $(document).on('click', '.edit-modal', function() {
+            $('.modal-user').text('Edit');
+            $('#id_edit').val($(this).data('id'));
+            $('#user_edit').val($(this).data('user'));
+            $('#content_edit').val($(this).data('content'));
+            id = $('#id_edit').val();
+            $('#editModal').modal('show');
+        });
+        $('.modal-footer').on('click', '.edit', function() {
+            $.ajax({
+                type: 'PUT',
+                url: '/comments/' + id,
+                data: {
+                    '_token': $('input[name=_token]').val(),
+                    'id': $("#id_edit").val(),
+                    'user': $('#user_edit').val(),
+                    'content': $('#content_edit').val()
+                },
+                success: function(data) {
+                    $('.errorUser').addClass('hidden');
+                    $('.errorContent').addClass('hidden');
+
+                    if ((data.errors)) {
+                        setTimeout(function () {
+                            $('#editModal').modal('show');
+                            toastr.error('Validation error!', 'Error Alert', {timeOut: 5000});
+                        }, 500);
+
+                        if (data.errors.user) {
+                            $('.errorUser').removeClass('hidden');
+                            $('.errorUser').text(data.errors.user);
+                        }
+                        if (data.errors.content) {
+                            $('.errorContent').removeClass('hidden');
+                            $('.errorContent').text(data.errors.content);
+                        }
+                    } else {
+                        toastr.success('Successfully updated Post!', 'Success Alert', {timeOut: 5000});
+                        $('.item' + data.id).replaceWith("<tr class='item" + data.id + "'><td>"+ data.content +  "</br> <b>By : </b>" + data.user + "</td><td><button class='delete-modal btn btn-danger' data-id='" + data.id + "' data-user='" + data.user + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-trash'></span> Delete</button>  <button class='edit-modal btn btn-info' data-id='" + data.id + "' data-user='" + data.user + "' data-content='" + data.content + "'><span class='glyphicon glyphicon-edit'></span> Edit</button></td></tr>");
+                        $('.col1').each(function (index) {
+                            $(this).html(index+1);
+                        });
+                    }
+                }
+            });
+        });
+
         //delete
 
         $(document).on('click', '.delete-modal', function() {
